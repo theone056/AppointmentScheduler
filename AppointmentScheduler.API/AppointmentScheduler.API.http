@@ -1,6 +1,0 @@
-@AppointmentScheduler.API_HostAddress = http://localhost:5220
-
-GET {{AppointmentScheduler.API_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace AppointmentScheduler.API.Controllers
+namespace AppointmentScheduler.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]

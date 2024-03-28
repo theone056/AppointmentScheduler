@@ -1,4 +1,4 @@
-namespace AppointmentScheduler.API
+namespace AppointmentScheduler.Server
 {
     public class WeatherForecast
     {
