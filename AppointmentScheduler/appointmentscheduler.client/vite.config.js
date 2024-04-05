@@ -6,6 +6,7 @@ import fs from 'fs';
 import path from 'path';
 import child_process from 'child_process';
 import { env } from 'process';
+import tailwindcss from 'tailwindcss';
 
 const baseFolder =
     env.APPDATA !== undefined && env.APPDATA !== ''
@@ -41,6 +42,11 @@ export default defineConfig({
             '@': fileURLToPath(new URL('./src', import.meta.url))
         }
     },
+    css: {
+        postcss: {
+            plugins:[tailwindcss()]
+        }
+    },
     server: {
         proxy: {
             '^/weatherforecast': {
@@ -48,6 +54,7 @@ export default defineConfig({
                 secure: false
             }
         },
+        host:true,
         port: 5173,
         https: {
             key: fs.readFileSync(keyFilePath),

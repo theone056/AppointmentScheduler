@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  appointmentscheduler.server:
+    image: ${DOCKER_REGISTRY-}appointmentschedulerserver
+    build:
+      context: .
+      dockerfile: AppointmentScheduler/AppointmentScheduler.Server/Dockerfile
+  appointmentscheduler.client:
+    image: ${DOCKER_REGISTRY-}appointmentschedulerclient
+    build:
+        context: .
+        dockerfile: AppointmentScheduler/appointmentscheduler.client/Dockerfile
+      
