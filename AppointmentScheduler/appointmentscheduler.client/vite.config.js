@@ -13,6 +13,8 @@ const baseFolder =
         ? `${env.APPDATA}/ASP.NET/https`
         : `${env.HOME}/.aspnet/https`;
 
+console.log(baseFolder);
+
 const certificateName = "appointmentscheduler.client";
 const certFilePath = path.join(baseFolder, `${certificateName}.pem`);
 const keyFilePath = path.join(baseFolder, `${certificateName}.key`);
@@ -34,6 +36,7 @@ if (!fs.existsSync(certFilePath) || !fs.existsSync(keyFilePath)) {
 const target = env.ASPNETCORE_HTTPS_PORT ? `https://localhost:${env.ASPNETCORE_HTTPS_PORT}` :
     env.ASPNETCORE_URLS ? env.ASPNETCORE_URLS.split(';')[0] : 'https://localhost:7288';
 
+    console.log(target);
 // https://vitejs.dev/config/
 export default defineConfig({
     plugins: [plugin()],
@@ -49,12 +52,11 @@ export default defineConfig({
     },
     server: {
         proxy: {
-            '^/weatherforecast': {
+            '/api':{
                 target,
-                secure: false
-            }
+                secure:false
+            } 
         },
-        host:true,
         port: 5173,
         https: {
             key: fs.readFileSync(keyFilePath),

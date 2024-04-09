@@ -21,7 +21,7 @@ namespace AppointmentScheduler.Server.Controllers
             _userAuthenticationService = userAuthenticationService;
         }
 
-        [HttpPost]
+        [HttpPost("Register")]
         public async Task<IActionResult> Register(UserRegistrationDTO userRegistrationDTO)
         {
             if(ModelState.IsValid)

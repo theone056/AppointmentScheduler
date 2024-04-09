@@ -1,7 +1,9 @@
 using AppointmentScheduler.Infrasturcture;
+using AppointmentScheduler.Core;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.ConfigureExtensions(builder.Configuration);
 builder.Services.ConfigureInfra(builder.Configuration);
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

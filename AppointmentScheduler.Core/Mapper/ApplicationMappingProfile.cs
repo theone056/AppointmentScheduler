@@ -1,4 +1,5 @@
-﻿using AppointmentScheduler.Core.Domain.IdentityEntities;
+﻿using AppointmentScheduler.Core.Domain.Entities;
+using AppointmentScheduler.Core.Domain.IdentityEntities;
 using AppointmentScheduler.Core.DTO;
 using AutoMapper;
 using System;
@@ -14,6 +15,7 @@ namespace AppointmentScheduler.Core.Mapper
         public ApplicationMappingProfile()
         {
             CreateMap<ApplicationUser, UserRegistrationDTO>().ReverseMap();
+            CreateMap<Appointment, CreateAppointmentDTO>().ReverseMap();
         }
     }
 }

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentScheduler.Core",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentScheduler.Infrasturcture", "AppointmentScheduler.Infrasturcture\AppointmentScheduler.Infrasturcture.csproj", "{15929002-EAFA-4BB0-AC6B-B960160869E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppointmentScheduler.Server", "AppointmentScheduler\AppointmentScheduler.Server\AppointmentScheduler.Server.csproj", "{A14A9C65-B70A-4E24-AF6A-F5024CD0316C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AppointmentScheduler.Server", "AppointmentScheduler\AppointmentScheduler.Server\AppointmentScheduler.Server.csproj", "{A14A9C65-B70A-4E24-AF6A-F5024CD0316C}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "appointmentscheduler.client", "AppointmentScheduler\appointmentscheduler.client\appointmentscheduler.client.esproj", "{766C7467-321C-47D0-879F-1721D871C7EB}"
 EndProject

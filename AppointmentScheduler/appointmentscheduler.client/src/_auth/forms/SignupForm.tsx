@@ -21,6 +21,7 @@ import {
     CardHeader,
     CardTitle,
   } from "@/components/ui/card"
+import { useOutletContext } from 'react-router-dom';
   
 
 const formShema = z.object({
@@ -29,13 +30,19 @@ const formShema = z.object({
     lastname: z.string().min(2).max(50),
     email: z.string().email().min(5),
     password: z.string().min(4),
-    confirmPassword: z.string().min(4)
+    confirmPassword: z.string().min(4),
+    phoneNumber: z.string().refine((val) => !Number.isNaN(parseInt(val,10)),{
+        message: "Expected number, received a string"
+    })
 }).refine((data)=> data.password === data.confirmPassword,{
     message:"Passwords do not match",
     path:["confirmPassword"]
 })
 
 const SignupForm = () => {
+
+    const [setIsAuthenticated] = useOutletContext();
+
     const form = useForm<z.infer<typeof formShema>>({
         resolver: zodResolver(formShema),
         defaultValues:{
@@ -44,12 +51,26 @@ const SignupForm = () => {
             lastname: "",
             email: "",
             password: "",
-            confirmPassword:""
+            confirmPassword:"",
+            phoneNumber: ""
         }
     })
 
-    const onSubmit = (values: z.infer<typeof formShema>) => {
-        console.log(values);
+    const onSubmit = async (values: z.infer<typeof formShema>) => {
+        const response = await fetch("/api/User/Register",{
+            method: 'POST',
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(values)
+        });
+
+        const result = await response.json();
+        if(result.succeeded)
+        {
+            setIsAuthenticated(true);
+            localStorage.setItem("user", JSON.stringify({"authenticated":true}))
+        }
     }
 
     return (
@@ -101,6 +122,19 @@ const SignupForm = () => {
                             )}
                         />
 
+                        <FormField 
+                            control={form.control}
+                            name='phoneNumber'
+                            render={({field})=>(
+                                <FormItem>
+                                    <FormLabel>Phone number</FormLabel>
+                                    <FormControl>
+                                        <Input className='w-96' placeholder="Phone number..." {...field}/>
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
                         <FormField 
                             control={form.control}
                             name='email'

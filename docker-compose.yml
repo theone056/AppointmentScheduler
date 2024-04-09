@@ -6,9 +6,10 @@ services:
     build:
       context: .
       dockerfile: AppointmentScheduler/AppointmentScheduler.Server/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=Pass@password
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/app/.aspnet/https/aspnetapp.pfx
   appointmentscheduler.client:
-    image: ${DOCKER_REGISTRY-}appointmentschedulerclient
-    build:
-        context: .
-        dockerfile: AppointmentScheduler/appointmentscheduler.client/Dockerfile
-      
+    image: appointmentscheduler.client:1.0

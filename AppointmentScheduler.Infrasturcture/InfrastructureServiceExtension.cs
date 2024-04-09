@@ -1,5 +1,7 @@
 ﻿using AppointmentScheduler.Core.Domain.IdentityEntities;
+using AppointmentScheduler.Core.Domain.Interface;
 using AppointmentScheduler.Infrasturcture.Context;
+using AppointmentScheduler.Infrasturcture.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -36,6 +38,8 @@ namespace AppointmentScheduler.Infrasturcture
             {
                 options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
             });
+
+            services.AddTransient<IUserRepository, UserRepository>();
         }
     }
 }

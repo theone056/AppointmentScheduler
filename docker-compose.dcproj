@@ -4,7 +4,7 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>93a23bb4-18cb-4fae-b5eb-44360c5c3858</ProjectGuid>
+    <ProjectGuid>4465e479-eb72-4d11-896f-67de17ed8b61</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
     <DockerServiceName>appointmentscheduler.server</DockerServiceName>
