@@ -6,8 +6,10 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import SignupForm from './_auth/forms/SignupForm.js'
 import AuthLayout from './_auth/AuthLayout.js'
 import RootLayout from './_root/RootLayout'
-import { Home } from 'lucide-react'
+import { Home,homeLoader } from './_root/pages/index'
 import SigninForm from './_auth/forms/SigninForm'
+
+
 
 
 const router = createBrowserRouter([
@@ -17,13 +19,14 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home/>,
-                errorElement: <h1>404 not Found</h1>
+                errorElement: <h1>404 not Found</h1>,
+                loader: homeLoader
             },
         ]
     },
     {
         element : <AuthLayout/>,
-        children: [ {
+        children: [{
             path: '/sign-up',
             element:<SignupForm />,
         },

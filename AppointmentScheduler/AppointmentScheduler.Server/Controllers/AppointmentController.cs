@@ -1,5 +1,6 @@
 ﻿using AppointmentScheduler.Core.DTO;
 using AppointmentScheduler.Core.Services.AppointmentServices.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
@@ -8,15 +9,20 @@ namespace AppointmentScheduler.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [AllowAnonymous]
     public class AppointmentController : ControllerBase
     {
         private readonly IAppointmentAdderService _appointmentAdderService;
-        public AppointmentController(IAppointmentAdderService appointmentAdderService)
+        private readonly IAppointmentGetterService _appointmentGetterService;
+        public AppointmentController(IAppointmentAdderService appointmentAdderService,
+                                     IAppointmentGetterService appointmentGetterService)
         {
             _appointmentAdderService = appointmentAdderService;
+            _appointmentGetterService = appointmentGetterService;
+
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<IActionResult> Create(CreateAppointmentDTO createAppointment)
         {
             if (ModelState.IsValid)
@@ -33,6 +39,18 @@ namespace AppointmentScheduler.Server.Controllers
             }
 
             return BadRequest(ModelState);
+        }
+
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> GetAll()
+        {
+            var result = await _appointmentGetterService.GetAllAppointmentsAsync();
+            if(result is not null)
+            {
+                return Ok(result);
+            }
+
+            return NotFound();
         }
     }
 }

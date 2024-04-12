@@ -40,6 +40,7 @@ namespace AppointmentScheduler.Infrasturcture
             });
 
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IAppointmentRepository, AppointmentRepository>();
         }
     }
 }

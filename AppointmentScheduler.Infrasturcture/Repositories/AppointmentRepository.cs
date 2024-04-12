@@ -3,11 +3,7 @@ using AppointmentScheduler.Core.Domain.Interface;
 using AppointmentScheduler.Core.DTO;
 using AppointmentScheduler.Infrasturcture.Context;
 using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace AppointmentScheduler.Infrasturcture.Repositories
 {
@@ -35,9 +31,21 @@ namespace AppointmentScheduler.Infrasturcture.Repositories
                 }
                 return false;
             }
-            catch (Exception ex)
+            catch
             {
-                throw new Exception(ex.Message, ex);
+                throw;
+            }
+        }
+
+        public async Task<List<GetAllAppointmentsDTO>> GetAllAppointmentsAsync()
+        {
+            try
+            {
+                var result = await _context.Appointments.ToListAsync();
+                return _mapper.Map<List<GetAllAppointmentsDTO>>(result);
+            }catch
+            {
+                throw;
             }
         }
     }

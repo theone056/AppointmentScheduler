@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AppointmentScheduler.Core.Domain.Interface
+namespace AppointmentScheduler.Core.Services.AppointmentServices.Interfaces
 {
-    public interface IAppointmentRepository
+    public interface IAppointmentGetterService
     {
-        Task<bool> CreateAsync(CreateAppointmentDTO appointmentDTO);
         Task<List<GetAllAppointmentsDTO>> GetAllAppointmentsAsync();
     }
 }

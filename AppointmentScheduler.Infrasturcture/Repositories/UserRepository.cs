@@ -31,13 +31,12 @@ namespace AppointmentScheduler.Infrasturcture.Repositories
             try
             {
                 var userdetails = await _userManager.FindByEmailAsync(user.Username) ?? await _userManager.FindByNameAsync(user.Username);
-                if(userdetails != null)
+                if(userdetails is not null)
                 {
-                    var usermapped = _mapper.Map<ApplicationUser>(userdetails);
-                    var result = await _userManager.CheckPasswordAsync(usermapped, user.Password);
+                    var result = await _userManager.CheckPasswordAsync(userdetails, user.Password);
                     if (result)
                     {
-                        await _signInManager.SignInAsync(usermapped, isPersistent:false);
+                        await _signInManager.PasswordSignInAsync(userdetails, user.Password ,isPersistent:false, lockoutOnFailure:false);
                         return true;
                     }
                 }

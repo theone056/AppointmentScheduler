@@ -16,6 +16,7 @@ namespace AppointmentScheduler.Core.Mapper
         {
             CreateMap<ApplicationUser, UserRegistrationDTO>().ReverseMap();
             CreateMap<Appointment, CreateAppointmentDTO>().ReverseMap();
+            CreateMap<Appointment, GetAllAppointmentsDTO>().ReverseMap();
         }
     }
 }

@@ -19,8 +19,14 @@ namespace AppointmentScheduler.Core.Services.AppointmentServices
         public async Task<bool> CreateAsync(CreateAppointmentDTO createAppointmentDTO)
         {
             if(createAppointmentDTO == null) { throw new ArgumentNullException(nameof(createAppointmentDTO)); }
-
-            return await _appointmentRepository.CreateAsync(createAppointmentDTO);
+            try
+            {
+                return await _appointmentRepository.CreateAsync(createAppointmentDTO);
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message, ex);
+            }
         }
     }
 }

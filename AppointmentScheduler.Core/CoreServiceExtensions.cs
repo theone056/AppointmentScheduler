@@ -1,4 +1,6 @@
 ﻿using AppointmentScheduler.Core.Mapper;
+using AppointmentScheduler.Core.Services.AppointmentServices;
+using AppointmentScheduler.Core.Services.AppointmentServices.Interfaces;
 using AppointmentScheduler.Core.Services.UserServices;
 using AppointmentScheduler.Core.Services.UserServices.Interfaces;
 using AutoMapper;
@@ -25,6 +27,8 @@ namespace AppointmentScheduler.Core
             services.AddSingleton(mappingConfig.CreateMapper());
             services.AddTransient<IUserAdderService,UserAdderService>();
             services.AddTransient<IUserAuthenticationService,UserAuthenticationService>();
+            services.AddTransient<IAppointmentAdderService, AppointmentAdderService>();
+            services.AddTransient<IAppointmentGetterService, AppointmentGetterService>();
         }
     }
 }
