@@ -48,5 +48,7 @@ namespace AppointmentScheduler.Infrasturcture.Repositories
                 throw;
             }
         }
+
+        
     }
 }

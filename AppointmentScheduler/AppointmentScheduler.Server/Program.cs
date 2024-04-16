@@ -1,5 +1,6 @@
 using AppointmentScheduler.Infrasturcture;
 using AppointmentScheduler.Core;
+using AppointmentScheduler.Server.Middleware;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,7 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
-
+app.UseMiddleware<ExceptionHandler>();
 app.UseDefaultFiles();
 app.UseStaticFiles();
 

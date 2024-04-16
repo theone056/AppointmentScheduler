@@ -1,5 +1,6 @@
 ﻿using AppointmentScheduler.Core.DTO;
 using AppointmentScheduler.Core.Services.AppointmentServices.Interfaces;
+using AppointmentScheduler.Server.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace AppointmentScheduler.Server.Controllers
 
         }
 
-        [HttpPost("Create")]
+        [HttpPost("Create")]    
         public async Task<IActionResult> Create(CreateAppointmentDTO createAppointment)
         {
             if (ModelState.IsValid)
@@ -47,7 +48,11 @@ namespace AppointmentScheduler.Server.Controllers
             var result = await _appointmentGetterService.GetAllAppointmentsAsync();
             if(result is not null)
             {
-                return Ok(result);
+                return Ok(new ApiResponse<List<GetAllAppointmentsDTO>> { 
+                    Success = true, 
+                    Message = "Successfully retrived the data!",
+                    Data = result
+                });
             }
 
             return NotFound();

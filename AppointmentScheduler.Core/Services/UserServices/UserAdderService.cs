@@ -19,7 +19,7 @@ namespace AppointmentScheduler.Core.Services.UserServices
             _userRepository = userRepository;
         }
 
-        public async Task<IdentityResult> RegisterAsync(UserRegistrationDTO userRegistration)
+        public async Task<RegisterUserResponse> RegisterAsync(UserRegistrationDTO userRegistration)
         {
             if(userRegistration == null) throw new ArgumentNullException(nameof(userRegistration));
             try

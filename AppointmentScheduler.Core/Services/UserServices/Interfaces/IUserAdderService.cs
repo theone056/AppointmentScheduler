@@ -10,6 +10,6 @@ namespace AppointmentScheduler.Core.Services.UserServices.Interfaces
 {
     public interface IUserAdderService
     {
-        Task<IdentityResult> RegisterAsync(UserRegistrationDTO userRegistration);
+        Task<RegisterUserResponse> RegisterAsync(UserRegistrationDTO userRegistration);
     }
 }

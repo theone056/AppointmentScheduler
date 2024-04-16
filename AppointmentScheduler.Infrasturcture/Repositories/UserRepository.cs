@@ -61,12 +61,18 @@ namespace AppointmentScheduler.Infrasturcture.Repositories
             }
         }
 
-        public async Task<IdentityResult> RegisterAsync(UserRegistrationDTO user)
+        public async Task<RegisterUserResponse> RegisterAsync(UserRegistrationDTO user)
         {
             try
             {
                 var usermapped = _mapper.Map<ApplicationUser>(user);
-                return await _userManager.CreateAsync(usermapped,user.Password);
+                var result = await _userManager.CreateAsync(usermapped,user.Password);
+
+                return new RegisterUserResponse()
+                {
+                    Errors = result.Errors,
+                    Succeeded = result.Succeeded,
+                };
             }
             catch(Exception ex)
             {

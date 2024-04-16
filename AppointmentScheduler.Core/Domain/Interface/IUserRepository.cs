@@ -10,7 +10,7 @@ namespace AppointmentScheduler.Core.Domain.Interface
 {
     public interface IUserRepository
     {
-        Task<IdentityResult> RegisterAsync(UserRegistrationDTO user);
+        Task<RegisterUserResponse> RegisterAsync(UserRegistrationDTO user);
         Task<bool> LoginAsync(UserLoginDTO user);
         Task LogoutAsync();
     }

@@ -102,8 +102,8 @@ namespace AppointmentScheduler.Infra.Tests
             _moqUserManager.Setup(x => x.CreateAsync(It.IsAny<ApplicationUser>(), userRegistrationDTO.Password)).ReturnsAsync(IdentityResult.Success);
 
             var result = await _userRepository.RegisterAsync(userRegistrationDTO);
-
-            Assert.IsType<IdentityResult>(result);
+           
+            Assert.IsType<RegisterUserResponse>(result);
             Assert.NotNull(result);
             Assert.True(result.Succeeded);
         }
