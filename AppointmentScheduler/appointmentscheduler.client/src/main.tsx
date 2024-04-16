@@ -6,8 +6,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import SignupForm from './_auth/forms/SignupForm.js'
 import AuthLayout from './_auth/AuthLayout.js'
 import RootLayout from './_root/RootLayout'
-import { Home,homeLoader } from './_root/pages/index'
+import { Home } from './_root/pages/index'
 import SigninForm from './_auth/forms/SigninForm'
+import { homeLoader } from './ApiCalls/homeloader'
 
 
 
