@@ -3,7 +3,7 @@ import React from 'react';
 import { Home as HomeICon } from 'lucide-react';
 import { useLoaderData } from 'react-router-dom';
 import DataTable from './Components/DataTable';
-import { Appointments } from '@/types/Types';
+import { Appointments } from '@/models/Types';
 
 const Home = () => {
     const appointments = useLoaderData() as Appointments[];

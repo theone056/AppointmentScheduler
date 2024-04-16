@@ -8,10 +8,7 @@ import AuthLayout from './_auth/AuthLayout.js'
 import RootLayout from './_root/RootLayout'
 import { Home } from './_root/pages/index'
 import SigninForm from './_auth/forms/SigninForm'
-import { homeLoader } from './ApiCalls/homeloader'
-
-
-
+import { homeLoader } from './apicalls/homeloader'
 
 const router = createBrowserRouter([
     {

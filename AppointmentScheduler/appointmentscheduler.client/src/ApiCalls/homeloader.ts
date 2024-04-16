@@ -1,4 +1,4 @@
-import { ApiResponse, Appointments } from "@/types/Types";
+import { ApiResponse, Appointments } from "@/models/Types";
 
 export const homeLoader = async () : Promise<Appointments[]> =>  {
     const res = await fetch("/api/Appointment/GetAll");
