@@ -18,25 +18,22 @@ namespace AppointmentScheduler.Infra.Tests
     public class AppointmentRepositoryTests
     {
         private readonly ApplicationDbContext _moqDbContext;
-        private readonly Mock<IMapper> _moqMapper;
-        private readonly IAppointmentRepository _appointmentRepository;
+
+        private readonly IUnitOfWork _appointmentRepository;
         private readonly DbContextMock<ApplicationDbContext> dbContextMock;
         public AppointmentRepositoryTests()
         {
-            _moqMapper = new Mock<IMapper>();
-
             dbContextMock = new DbContextMock<ApplicationDbContext>(new DbContextOptionsBuilder<ApplicationDbContext>().Options);
             _moqDbContext = dbContextMock.Object;
             dbContextMock.CreateDbSetMock(temp=>temp.Appointments, new List<Appointment>());
-            _appointmentRepository = new AppointmentRepository(_moqDbContext, _moqMapper.Object);
+            _appointmentRepository = new UnitOfWork(_moqDbContext);
         }
 
         [Fact]
         public async void CreateAsync_Returns_Boolean()
         {
-            _moqMapper.Setup(x => x.Map<Appointment>(It.IsAny<CreateAppointmentDTO>())).Returns(new Appointment() { Id=Guid.NewGuid(), Title = "Test 1234"});
             dbContextMock.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(0);
-            var result = await _appointmentRepository.CreateAsync(new CreateAppointmentDTO() { Title ="Test 1234"});
+            var result = await _appointmentRepository.Appointments.Add(new Appointment() { Title ="Test 1234"});
 
             Assert.IsType<Boolean>(result);
         }
@@ -45,20 +42,17 @@ namespace AppointmentScheduler.Infra.Tests
         [Fact]
         public async void CreateAsync_Returns_False()
         {
-            _moqMapper.Setup(x => x.Map<Appointment>(It.IsAny<CreateAppointmentDTO>())).Returns(new Appointment() { Id = Guid.NewGuid(), Title = "Test 1234" });
-            dbContextMock.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(0);
-            var result = await _appointmentRepository.CreateAsync(new CreateAppointmentDTO() { Title = "Test 1234" });
+            var result = await _appointmentRepository.Appointments.Add(new Appointment() { Title = "Test 1234" });
+            await _appointmentRepository.Save();
 
-            Assert.IsType<Boolean>(result);
-            Assert.False(result);
+            dbContextMock.Verify(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()));
         }
 
         [Fact]
         public async void CreateAsync_Returns_True()
         {
-            _moqMapper.Setup(x => x.Map<Appointment>(It.IsAny<CreateAppointmentDTO>())).Returns(new Appointment() { Id = Guid.NewGuid(), Title = "Test 1234" });
             dbContextMock.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).ReturnsAsync(1);
-            var result = await _appointmentRepository.CreateAsync(new CreateAppointmentDTO() { Title = "Test 1234" });
+            var result = await _appointmentRepository.Appointments.Add(new Appointment() { Title = "Test 1234" });
 
             Assert.IsType<Boolean>(result);
             Assert.True(result);
@@ -69,15 +63,13 @@ namespace AppointmentScheduler.Infra.Tests
         {
             dbContextMock.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>())).ThrowsAsync(new ArgumentNullException());
 
-            Assert.ThrowsAsync<ArgumentNullException>(() => _appointmentRepository.CreateAsync(new CreateAppointmentDTO() { Title = "Test 1234" }));
+            Assert.ThrowsAsync<ArgumentNullException>(() => _appointmentRepository.Appointments.Add(new Appointment() { Title = "Test 1234" }));
         }
 
         [Fact]
         public async void GetAllAppointmentsAsync_Returns_List_of_GetAllAppointmentsDTO()
         {
-            dbContextMock.Setup(x => x.Appointments.ToListAsync(It.IsAny<CancellationToken>())).ReturnsAsync(new List<Appointment>() { new Appointment() { Title = "Test" } });
-            List<GetAllAppointmentsDTO> result = await _appointmentRepository.GetAllAppointmentsAsync();
-
+            var result = await _appointmentRepository.Appointments.GetAll();
             Assert.IsType<List<Appointment>>(result);
         }
     }

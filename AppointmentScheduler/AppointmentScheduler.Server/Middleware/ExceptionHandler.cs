@@ -2,22 +2,16 @@
 
 namespace AppointmentScheduler.Server.Middleware
 {
-    public class ExceptionHandler
+    public class ExceptionHandler : IMiddleware
     {
-        private readonly RequestDelegate _next;
-
-        public ExceptionHandler(RequestDelegate next)
-        {
-            _next = next;
-        }
-
-        public async Task InvokeAsync(HttpContext context)
+        public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
             try
             {
-               await _next(context);
+                await next(context);
             }
-            catch(Exception ex) { 
+            catch (Exception ex)
+            {
                 context.Response.StatusCode = 500;
                 await context.Response.WriteAsJsonAsync(new ApiResponse<object> { Success = false, Message = "An error occured while processing your request." });
             }

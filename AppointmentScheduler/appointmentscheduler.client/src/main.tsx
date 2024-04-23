@@ -9,6 +9,7 @@ import RootLayout from './_root/RootLayout'
 import { Home } from './_root/pages/index'
 import SigninForm from './_auth/forms/SigninForm'
 import { homeLoader } from './apicalls/homeloader'
+import Appointments from './_root/pages/Appointments'
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
                 errorElement: <h1>404 not Found</h1>,
                 loader: homeLoader
             },
+            {
+                path: '/Appointments',
+                element: <Appointments />
+            }
         ]
     },
     {

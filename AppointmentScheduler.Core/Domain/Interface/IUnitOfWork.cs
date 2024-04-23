@@ -1,5 +1,4 @@
-﻿using AppointmentScheduler.Core.Domain.Entities;
-using AppointmentScheduler.Core.DTO;
+﻿using AppointmentScheduler.Core.Domain.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace AppointmentScheduler.Core.Domain.Interface
 {
-    public interface IAppointmentRepository : IGenericRepository<Appointment>
+    public interface IUnitOfWork : IDisposable
     {
+        IAppointmentRepository Appointments { get; }
 
+        Task Save();
     }
 }

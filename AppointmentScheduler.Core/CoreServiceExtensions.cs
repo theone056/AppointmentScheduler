@@ -1,4 +1,5 @@
-﻿using AppointmentScheduler.Core.Mapper;
+﻿using AppointmentScheduler.Core.Domain.Interface;
+using AppointmentScheduler.Core.Mapper;
 using AppointmentScheduler.Core.Services.AppointmentServices;
 using AppointmentScheduler.Core.Services.AppointmentServices.Interfaces;
 using AppointmentScheduler.Core.Services.UserServices;
@@ -29,6 +30,7 @@ namespace AppointmentScheduler.Core
             services.AddTransient<IUserAuthenticationService,UserAuthenticationService>();
             services.AddTransient<IAppointmentAdderService, AppointmentAdderService>();
             services.AddTransient<IAppointmentGetterService, AppointmentGetterService>();
+
         }
     }
 }

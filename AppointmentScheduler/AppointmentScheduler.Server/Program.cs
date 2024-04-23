@@ -1,6 +1,8 @@
 using AppointmentScheduler.Infrasturcture;
 using AppointmentScheduler.Core;
 using AppointmentScheduler.Server.Middleware;
+using System.Diagnostics;
+using AppointmentScheduler.Core.Domain.IdentityEntities;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -10,8 +12,11 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddTransient<MeasureRequestProcessingMiddleware>();
+builder.Services.AddSingleton<ExceptionHandler>();
 
 var app = builder.Build();
+app.UseMiddleware<MeasureRequestProcessingMiddleware>();
 app.UseMiddleware<ExceptionHandler>();
 app.UseDefaultFiles();
 app.UseStaticFiles();

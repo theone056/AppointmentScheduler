@@ -9,7 +9,7 @@ const RootLayout = () => {
                     <h1 className="text-lg py-5"><NavLink to="/">Appointment</NavLink></h1>
                     <ul className='flex flex-col gap-5 pt-5'>
                         <li><NavLink to="/">Home</NavLink></li>
-                        <li><NavLink to='/Appointents'>Appointments</NavLink></li>
+                        <li><NavLink to='/Appointments'>Appointments</NavLink></li>
                         <li><NavLink to='/Calendar'>Calendar</NavLink></li>
                     </ul>
                 </div>

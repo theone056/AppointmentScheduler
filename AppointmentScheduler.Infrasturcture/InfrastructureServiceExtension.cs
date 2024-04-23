@@ -7,11 +7,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AppointmentScheduler.Infrasturcture
 {
@@ -31,8 +26,8 @@ namespace AppointmentScheduler.Infrasturcture
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
             })
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
+           .AddEntityFrameworkStores<ApplicationDbContext>()
+           .AddDefaultTokenProviders(); 
 
             services.AddAuthorizationCore(options =>
             {
@@ -40,7 +35,7 @@ namespace AppointmentScheduler.Infrasturcture
             });
 
             services.AddTransient<IUserRepository, UserRepository>();
-            services.AddTransient<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
 }

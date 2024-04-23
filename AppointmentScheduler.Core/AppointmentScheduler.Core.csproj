@@ -14,4 +14,8 @@
     <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\UnitOfWork\Interface\" />
+  </ItemGroup>
+
 </Project>
