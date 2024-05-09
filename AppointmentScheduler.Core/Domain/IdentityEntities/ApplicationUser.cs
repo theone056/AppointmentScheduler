@@ -12,6 +12,8 @@ namespace AppointmentScheduler.Core.Domain.IdentityEntities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public string? RefreshToken { get; set; }
+        public DateTime RefreshTokenExpirationDateTime { get; set; }
         [NotMapped]
         public string FullName { 
             get {

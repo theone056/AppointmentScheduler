@@ -4,6 +4,7 @@ using AppointmentScheduler.Infrasturcture.Context;
 using AppointmentScheduler.Infrasturcture.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,14 +28,15 @@ namespace AppointmentScheduler.Infrasturcture
                 options.Password.RequireUppercase = false;
             })
            .AddEntityFrameworkStores<ApplicationDbContext>()
-           .AddDefaultTokenProviders(); 
+           .AddDefaultTokenProviders()
+           .AddUserStore<UserStore<ApplicationUser,ApplicationUserRole,ApplicationDbContext, Guid>>()
+           .AddRoleStore<RoleStore<ApplicationUserRole, ApplicationDbContext, Guid>>(); 
 
-            services.AddAuthorizationCore(options =>
-            {
-                options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
-            });
+            //services.AddAuthorizationCore(options =>
+            //{
+            //    options.FallbackPolicy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+            //});
 
-            services.AddTransient<IUserRepository, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
         }
     }
